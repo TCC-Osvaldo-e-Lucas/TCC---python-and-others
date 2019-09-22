@@ -2,6 +2,7 @@
     "list": [
         {
             "name": "greensleves",
+            "title": "greensleves",
             "type": "wav",
             "tempo": 135.99917763157896,
             "author": "unknown",
@@ -9,10 +10,19 @@
         },
         {
             "name": "greensleevesFM",
+            "title": "greensleves",
             "type": "wav",
             "tempo": 112.34714673913044,
             "author": "unknown",
             "font": "unknown"
+        },
+        {
+            "name": "recuerdos-luna",
+            "title": "recurdos de la luna",
+            "type": "wav",
+            "tempo": 95.703125,
+            "author": "Jeffrey Olson",
+            "font": "https://www.mutopiaproject.org/"
         }
     ]
 }
