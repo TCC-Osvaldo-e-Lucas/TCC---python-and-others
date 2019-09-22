@@ -34,6 +34,19 @@ for musica in data["list"]:
         ### tamanho da musica
         lenght = y.size * sr
 
+        ### execução da transformada
+        chroma = chroma_cqt(y, cqt_mode='full')
+
+        ### criação da imagem base - chromograma completo
+        plt.axis('off')
+        plt.margins(0)
+        specshow(chroma,bins_per_octave=12)
+        # specshow(chroma2, x_axis='time', y_axis='log', bins_per_octave=12)
+        
+        ### Salva o chromograma com o nome padrão
+        plt.savefig("images\\"+musica["name"]+"_whole.png", bbox_inches='tight', pad_inches=0)
+
+
         ### Detecção do tempo da música
         ### Como usar esse tempo pra recortar a imagem?
         ### indica o tempo para a música em questão no arquivo json somente se o valor no arquivo
@@ -48,6 +61,7 @@ for musica in data["list"]:
         ### já que foi constatado que o diretório não existe no inicio do IF
         os.mkdir("images\\"+musica["name"])
 
+
         ### recupera as dimensões (em pixel) do chromograma
         img = Image.open("images\\"+musica["name"]+"_whole.png")
         width, height = img.size
@@ -57,7 +71,7 @@ for musica in data["list"]:
         indice = 0
         ## espessura da faixa a ser extraída
         ## necessita analisar, utilizando o tempo da musica
-        step = 4
+        step = 1
 
         ### While que varre a foto, recortando faixas e criando imagens 
         while stage+step <= width:
@@ -87,21 +101,11 @@ exit()
 
 
 
-# ### leitura da música
-# y, sr = librosa.load("audios\\greensleves.wav")
-# # x, sr2 = librosa.load('Documents/MATLAB/TCC/Py Analise Som/greensleevesFM.wav')
+### leitura da música
+y, sr = librosa.load("audios\\greensleves.wav")
+# x, sr2 = librosa.load('Documents/MATLAB/TCC/Py Analise Som/greensleevesFM.wav')
 
-# ### Detecção do tempo da música
-# tempo_estimado = librosa.beat.tempo(y,sr)
+### Detecção do tempo da música
+tempo_estimado = librosa.beat.tempo(y,sr)
 
-# ### execução da transformada
-# chroma = chroma_cqt(y, cqt_mode='full')
-
-# ### criação da imagem base - chromograma completo
-# plt.axis('off')
-# plt.margins(0)
-# specshow(chroma,bins_per_octave=12)
-# # specshow(chroma2, x_axis='time', y_axis='log', bins_per_octave=12)
-
-# plt.savefig('imagem_base.png', bbox_inches='tight', pad_inches=0)
-
+print(27*53)
