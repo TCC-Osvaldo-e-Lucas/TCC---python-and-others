@@ -23,6 +23,14 @@
             "tempo": 95.703125,
             "author": "Jeffrey Olson",
             "font": "https://www.mutopiaproject.org/"
+        },
+        {
+            "name": "spanish-romance",
+            "title": "spanish romance",
+            "type": "wav",
+            "tempo": 0,
+            "author": "unknown",
+            "font": "https://www.mutopiaproject.org/"
         }
     ]
 }
