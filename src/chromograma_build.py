@@ -76,9 +76,11 @@ for musica in data["list"]:
 ### Reescreve o arquivo lista com o tempo correto da música se ocorrer uma mudança no arquivo
 ### mudança no arquivo é indicado por uma flag MUDANÇA
 if mudança == True:
+    print("Houve alteração no arquivo Json")
     with open(filename, 'w') as f:
         json.dump(data, f, indent=4)
-
+else:
+    print("Não houve alteração no arquivo Json")
 
 print("Fim.")
 exit()
