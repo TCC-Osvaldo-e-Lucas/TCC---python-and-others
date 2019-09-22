@@ -10,6 +10,7 @@ from PIL import Image
 # %matplotlib inline
 
 print("Inicio:\n")
+print(" ")
 
 ### Abre a lista de músicas e informações
 filename = 'audios\\list.json'
@@ -21,57 +22,56 @@ for musica in data["list"]:
 
     mudança = False
 
-    print(musica["name"])
-    print(" ")
+    ### Checa para ver se a música já foi analisada.
+    if os.path.isdir("images\\"+musica["name"]) == False:
 
-    ### leitura da música
-    y, sr = librosa.load("audios\\"+musica["name"]+"."+musica["type"])
-    ### tamanho da musica
-    lenght = y.size * sr
 
-    ### Detecção do tempo da música
-    ### Como usar esse tempo pra recortar a imagem?
-    ### indica o tempo para a música em questão no arquivo json somente se o valor no arquivo
-    ### for igual a zero. Senão, é dispensado a mudança
-    if musica["tempo"] == 0:
-        tempo_estimado = librosa.beat.tempo(y,sr)
-        print (tempo_estimado[0])
-        musica["tempo"] = tempo_estimado[0]
-        mudança = True
+        print("Criando imagens e dados sobre "+musica["name"])
+        print(" ")
 
-    ### execução da transformada
-    chroma = chroma_cqt(y, cqt_mode='full')
+        ### leitura da música
+        y, sr = librosa.load("audios\\"+musica["name"]+"."+musica["type"])
+        ### tamanho da musica
+        lenght = y.size * sr
 
-    ### criação da imagem base - chromograma completo
-    plt.axis('off')
-    plt.margins(0)
-    specshow(chroma,bins_per_octave=12)
+        ### Detecção do tempo da música
+        ### Como usar esse tempo pra recortar a imagem?
+        ### indica o tempo para a música em questão no arquivo json somente se o valor no arquivo
+        ### for igual a zero. Senão, é dispensado a mudança
+        if musica["tempo"] == 0:
+            tempo_estimado = librosa.beat.tempo(y,sr)
+            print (tempo_estimado[0])
+            musica["tempo"] = tempo_estimado[0]
+            mudança = True
+        
+        ### Cria um diretório com o nome da música, para salvar as imagens recortadas
+        ### já que foi constatado que o diretório não existe no inicio do IF
+        os.mkdir("images\\"+musica["name"])
 
-    ### salva o arquivo de imagem - chromograma completo
-    plt.savefig("images\\"+musica["name"]+"_whole.png", bbox_inches='tight', pad_inches=0)
+        ### recupera as dimensões (em pixel) do chromograma
+        img = Image.open("images\\"+musica["name"]+"_whole.png")
+        width, height = img.size
+        
+        ## coordenada inicial, para os recortes
+        stage = 0
+        indice = 0
+        ## espessura da faixa a ser extraída
+        ## necessita analisar, utilizando o tempo da musica
+        step = 4
 
-    ### Cria um diretório com o nome da música, para salvar as imagens recortadas
-    os.mkdir("images\\"+musica["name"])
+        ### While que varre a foto, recortando faixas e criando imagens 
+        while stage+step <= width:
+            img_cut=img.crop((stage,0,stage+step,height))
+            img_cut.save("images\\"+musica["name"]+"\\%s.png"%indice,"png")
 
-    ### recupera as dimensões (em pixel) do chromograma
-    img = Image.open("images\\"+musica["name"]+"_whole.png")
-    width, height = img.size
-    
-    ## coordenada inicial, para os recortes
-    stage = 0
-    indice = 0
-    ## espessura da faixa a ser extraída
-    ## necessita analisar, utilizando o tempo da musica
-    step = 4
+            ### Varre a foto de step em step
+            stage += step
+            indice += 1
 
-    ### While que varre a foto, recortando faixas e criando imagens 
-    while stage+step <= width:
-        img_cut=img.crop((stage,0,stage+step,height))
-        img_cut.save("images\\"+musica["name"]+"\\%s.png"%indice,"png")
-
-        ### Varre a foto de step em step
-        stage += step
-        indice += 1
+    else:
+        print(musica["name"]+" já foi analisada. Caso queira refazer a analise, apague a pasta da música em questão antes")
+        print (" ")
+### Após analisadas todas as músicas da lista, vemos se houve alteração no arquivo Json
 
 ### Reescreve o arquivo lista com o tempo correto da música se ocorrer uma mudança no arquivo
 ### mudança no arquivo é indicado por uma flag MUDANÇA
