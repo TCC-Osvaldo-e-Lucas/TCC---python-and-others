@@ -20,7 +20,7 @@ for musica in data["list"]:
     print(musica["name"])
     print(" ")
     ### leitura da música
-    y, sr = librosa.load("audios\\"+musica["name"])
+    y, sr = librosa.load("audios\\"+musica["name"]+"."+musica["type"])
 
     ### Detecção do tempo da música
     tempo_estimado = librosa.beat.tempo(y,sr)
