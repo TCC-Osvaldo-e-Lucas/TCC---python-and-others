@@ -4,6 +4,7 @@
             "name": "greensleves",
             "title": "greensleves",
             "type": "wav",
+            "duration": 57.61251700680272,
             "tempo": 135.99917763157896,
             "author": "unknown",
             "font": "unknown"
@@ -12,6 +13,7 @@
             "name": "greensleevesFM",
             "title": "greensleves",
             "type": "wav",
+            "duration": 57.61251700680272,
             "tempo": 112.34714673913044,
             "author": "unknown",
             "font": "unknown"
@@ -20,6 +22,7 @@
             "name": "recuerdos-luna",
             "title": "recurdos de la luna",
             "type": "wav",
+            "duration": 157.51256235827665,
             "tempo": 95.703125,
             "author": "Jeffrey Olson",
             "font": "https://www.mutopiaproject.org/"
@@ -28,7 +31,8 @@
             "name": "spanish-romance",
             "title": "spanish romance",
             "type": "wav",
-            "tempo": 0,
+            "duration": 63.344036281179136,
+            "tempo": 135.99917763157896,
             "author": "unknown",
             "font": "https://www.mutopiaproject.org/"
         }

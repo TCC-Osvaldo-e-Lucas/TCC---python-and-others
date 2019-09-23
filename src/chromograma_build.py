@@ -32,7 +32,17 @@ for musica in data["list"]:
         ### leitura da música
         y, sr = librosa.load("audios\\"+musica["name"]+"."+musica["type"])
         ### tamanho da musica
-        lenght = y.size * sr
+        if musica["duration"] == 0:
+            ### calcula o a duração da música em segundos
+            lenght = y.size/sr
+            musica["duration"] = lenght
+            mudança = True
+        ### print dos tamanhos da música
+        print("tamanho da música em s: ",musica["duration"])
+        length_min = musica["duration"]/60
+        print("tamanho da música em m: %s"%length_min)
+    
+
 
         ### execução da transformada
         chroma = cqt(y)
@@ -57,20 +67,31 @@ for musica in data["list"]:
         ### indica o tempo para a música em questão no arquivo json somente se o valor no arquivo
         ### for igual a zero. Senão, é dispensado a mudança
         if musica["tempo"] == 0:
+            ### tempo estimado em BPM
             tempo_estimado = librosa.beat.tempo(y,sr)
-            print (tempo_estimado[0])
+            print ("tempo estimado: ",tempo_estimado[0])
             musica["tempo"] = tempo_estimado[0]
             mudança = True
         
+        ### batimentos por segundo
+        bps = musica["tempo"]/60
+        ### segundos por batimento, considerando um batimento uma semínima
+        spb = 1/bps
+        ### duração de tempo delta de uma fusa
+        delta = spb/8
+        ### calcula quantos pixels precisa, para ter um pixel para cada "Fusa"
+        pixels_fusa = lenght/delta
+
+        print("numeros de pixels: ",pixels_fusa)
+
         ### Cria um diretório com o nome da música, para salvar as imagens recortadas
         ### já que foi constatado que o diretório não existe no inicio do IF
         os.mkdir("images\\"+musica["name"])
 
-
         ### recupera as dimensões (em pixel) do chromograma
         img = Image.open("images\\"+musica["name"]+"_whole.png")
         width, height = img.size
-        
+    
         ## coordenada inicial, para os recortes
         stage = 0
         indice = 0
