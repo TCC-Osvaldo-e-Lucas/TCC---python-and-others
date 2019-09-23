@@ -35,12 +35,17 @@ for musica in data["list"]:
         lenght = y.size * sr
 
         ### execução da transformada
-        chroma = chroma_cqt(y, cqt_mode='full')
+        chroma = cqt(y)
+        logcqt = librosa.amplitude_to_db(np.abs(chroma))
+
+        #Definição de frequência mínima e máxima de acordo com a amplitude do piano
+		fmin = librosa.note_to_hz('A0')
+		fmax = librosa.note_to_hz('C8')
 
         ### criação da imagem base - chromograma completo
         plt.axis('off')
         plt.margins(0)
-        specshow(chroma,bins_per_octave=12)
+        specshow(chroma, fmin=fmin, fmax=fmax, cmap='coolwarm')
         # specshow(chroma2, x_axis='time', y_axis='log', bins_per_octave=12)
         
         ### Salva o chromograma com o nome padrão
