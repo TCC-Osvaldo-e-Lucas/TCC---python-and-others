@@ -3,6 +3,7 @@ def image_analyser():
 	import cv2
 	import glob
 	import numpy as np
+	import matplotlib.pyplot as plt
 	#Crio as listas que guardarão as imgs
 	X_treino = []
 	X_teste = []
@@ -12,11 +13,11 @@ def image_analyser():
 
 	#Junto todos as imgs em um np.array, para posterior leitura na convnet
 	for myFile_treino in files:
-	    image = pyplot.imread(myFile_treino)
+	    image = plt.imread(myFile_treino)
 	    X_treino.append(image)
 
 	for myFile_teste in files:
-	    image = pyplot.imread(myFile_teste)
+	    image = plt.imread(myFile_teste)
 	    X_teste.append(image)
 
 	print('X_treino shape:', np.array(X_treino).shape)
