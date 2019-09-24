@@ -1,9 +1,25 @@
-from PIL import Image
+def image_analyser():
 
-img = Image.open("images\\teste2_greensleves_cqt_chroma.png")
+	import cv2
+	import glob
+	import numpy as np
+	#Crio as listas que guardarão as imgs
+	X_treino = []
+	X_teste = []
+	#Itero sobre os arquivos de img já separando-os em treino e teste
+	files_treino = glob.glob ("images\\teste_wave\\[0-74].png")
+	files_teste = glob.glob("images\\teste_wave\\[75-98].png")
 
+	#Junto todos as imgs em um np.array, para posterior leitura na convnet
+	for myFile_treino in files:
+	    image = pyplot.imread(myFile_treino)
+	    X_treino.append(image)
 
-print(img.size)
+	for myFile_teste in files:
+	    image = pyplot.imread(myFile_teste)
+	    X_teste.append(image)
 
-img_cut=img.crop((0,0,1,480))
-img_cut.save("images\\faixa teste.png","png")
+	print('X_treino shape:', np.array(X_treino).shape)
+	print('X_teste shape:', np.array(X_teste).shape)
+
+	return [X_treino, X_teste]
