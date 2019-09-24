@@ -13,7 +13,8 @@ print("Inicio:\n")
 print(" ")
 
 ### Abre a lista de músicas e informações
-filename = 'audios\\list.json'
+# filename = 'audios\\list.json' #Lista de músicas
+filename = 'audios\\list treino.json' #Lista de audio para treino 1
 with open(filename, 'r') as f:
     data = json.load(f)
 
@@ -45,12 +46,13 @@ for musica in data["list"]:
 
 
         ### execução da transformada
-        chroma = cqt(y)
+        chroma = chroma_cqt(y)
         logcqt = librosa.amplitude_to_db(np.abs(chroma))
 
         #Definição de frequência mínima e máxima de acordo com a amplitude do piano
-		fmin = librosa.note_to_hz('A0')
-		fmax = librosa.note_to_hz('C8')
+        fmin = librosa.note_to_hz('A0',round_midi=True)
+        fmax = librosa.note_to_hz('C8',round_midi=True)
+
 
         ### criação da imagem base - chromograma completo
         plt.axis('off')
@@ -80,7 +82,7 @@ for musica in data["list"]:
         ### duração de tempo delta de uma fusa
         delta = spb/8
         ### calcula quantos pixels precisa, para ter um pixel para cada "Fusa"
-        pixels_fusa = lenght/delta
+        pixels_fusa = musica["duration"]/delta
 
         print("numeros de pixels: ",pixels_fusa)
 
@@ -97,7 +99,7 @@ for musica in data["list"]:
         indice = 0
         ## espessura da faixa a ser extraída
         ## necessita analisar, utilizando o tempo da musica
-        step = 1
+        step = 5
 
         ### While que varre a foto, recortando faixas e criando imagens 
         while stage+step <= width:
