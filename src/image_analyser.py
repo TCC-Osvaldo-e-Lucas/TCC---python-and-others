@@ -35,6 +35,6 @@ def image_analyser():
 
 	return [X_treino, X_teste]
 
-auxiliar = image_analyser()
+# auxiliar = image_analyser()
 
-print(auxiliar[1])
+# print(auxiliar[1])
