@@ -13,7 +13,7 @@ def convnet(X_train, y_train, X_test, y_test, width, height):
 	import numpy as np
 	import matplotlib.pyplot as plt
 	import seaborn as sns
-	import tensorflow as tf
+	# import tensorflow as tf
 	import keras
 	from keras.models import Sequential
 	from keras.layers import Dense
