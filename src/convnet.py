@@ -80,6 +80,8 @@ def convnet(X_train, y_train, X_test, y_test, width, height):
 	plt.xlabel('Epoch')
 	plt.ylabel('Accuracy')
 	plt.legend(['train','test'], loc='lower right')
+	plt.show()
+	plt.savefig("images\\acuracia_convnet.png")
 
 	plt.subplot(2,1,2)
 	plt.plot(history.history['loss'])
@@ -91,6 +93,7 @@ def convnet(X_train, y_train, X_test, y_test, width, height):
 
 	plt.show()
 
+	plt.savefig("images\\loss_convnet.png")
 	# print('Evaluated Loss', score[0])
 	# print('Evaluated Accuracy', score[1])
 )
