@@ -35,15 +35,9 @@ def convnet(X_train, y_train, X_test, y_test, width, height):
 	X_test = X_test.reshape(X_test.shape[0], width, height, 1)
 	input_shape = (width, height, 1)
 
-	#Transformando os ints em vetores de tamanho 10
+	#Transformando os ints em vetores de tamanho 12
 	y_train = to_categorical(y_train)
 	X_train = to_categorical(X_train)
-	  
-	#Normalizando a imagem entre 0-1
-	X_train = X_train.astype('float32')
-	X_test = X_test.astype('float32')
-	X_train /= 255
-	X_test /= 255
 
 
 	"""**Criação do modelo de NN e compilação**"""
