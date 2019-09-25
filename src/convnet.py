@@ -97,5 +97,6 @@ def convnet(X_train, y_train, X_test, y_test, width, height):
 
 	plt.show()
 
-	print('Evaluated Loss', score[0])
-	print('Evaluated Accuracy', score[1])
+	# print('Evaluated Loss', score[0])
+	# print('Evaluated Accuracy', score[1])
+)
