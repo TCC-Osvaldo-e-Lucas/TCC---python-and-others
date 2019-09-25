@@ -96,4 +96,3 @@ def convnet(X_train, y_train, X_test, y_test, width, height):
 	plt.savefig("images\\loss_convnet.png")
 	# print('Evaluated Loss', score[0])
 	# print('Evaluated Accuracy', score[1])
-)
