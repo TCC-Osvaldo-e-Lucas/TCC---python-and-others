@@ -8,9 +8,18 @@ def image_analyser():
 	#Crio as listas que guardarão as imgs
 	X_treino = []
 	X_teste = []
+	
 	#Itero sobre os arquivos de img já separando-os em treino e teste
-	files_treino = glob.glob ("images\\teste_wave\\[0-74].png")
-	files_teste = glob.glob("images\\teste_wave\\[75-98].png")
+	files_treino = []
+	files_teste = []
+	aux = 0
+	while aux<=74:
+		files_treino.append("images\\teste_wave\\%s.png"%aux)
+		aux+=1
+	aux2=75
+	while aux2<=98:
+		files_teste.append("images\\teste_wave\\%s.png"%aux2)
+		aux2+=1
 
 	#Junto todos as imgs em um np.array, para posterior leitura na convnet
 	for myFile_treino in files_treino:
@@ -27,6 +36,5 @@ def image_analyser():
 	return [X_treino, X_teste]
 
 auxiliar = image_analyser()
-print(auxiliar[0])
-print("huehuaihf")
+
 print(auxiliar[1])
