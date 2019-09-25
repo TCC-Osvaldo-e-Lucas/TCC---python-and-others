@@ -101,6 +101,7 @@ for musica in data["list"]:
         ## necessita analisar, utilizando o tempo da musica
         step = 5
 
+        ###
         ### While que varre a foto, recortando faixas e criando imagens 
         while stage+step <= width:
             img_cut=img.crop((stage,0,stage+step,height))
