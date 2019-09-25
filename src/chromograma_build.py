@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import librosa
-from librosa.feature import chroma_cqt
+from librosa import cqt
 from librosa.display import specshow
 import json
 import os
@@ -46,7 +46,7 @@ for musica in data["list"]:
 
 
         ### execução da transformada
-        chroma = chroma_cqt(y)
+        chroma = cqt(y)
         logcqt = librosa.amplitude_to_db(np.abs(chroma))
 
         #Definição de frequência mínima e máxima de acordo com a amplitude do piano
@@ -57,7 +57,7 @@ for musica in data["list"]:
         ### criação da imagem base - chromograma completo
         plt.axis('off')
         plt.margins(0)
-        specshow(chroma, fmin=fmin, fmax=fmax, cmap='coolwarm')
+        specshow(chroma, fmin=fmin, fmax=fmax, cmap='gray')
         # specshow(chroma2, x_axis='time', y_axis='log', bins_per_octave=12)
         
         ### Salva o chromograma com o nome padrão
