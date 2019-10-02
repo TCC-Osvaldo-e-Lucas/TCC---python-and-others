@@ -93,4 +93,3 @@ def convnet(X_train, y_train, X_test, y_test, width, height):
 
 	# print('Evaluated Loss', score[0])
 	# print('Evaluated Accuracy', score[1])
-)

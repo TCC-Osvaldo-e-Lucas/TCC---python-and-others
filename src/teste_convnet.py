@@ -1,3 +1,4 @@
+import numpy as np
 import image_analyser as imal
 import pandas as pd
 import convnet
