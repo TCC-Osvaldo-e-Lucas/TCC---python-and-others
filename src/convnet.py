@@ -1,3 +1,4 @@
+#!py35
 # -*- coding: utf-8 -*-
 """ConvNet.ipynb
 
@@ -30,14 +31,14 @@ def convnet(X_train, y_train, X_test, y_test, width, height):
 
 	Aqui também foram normalizados os valores dos pixels de cada imagem, para que fiquem entre 0 e 1."""
 
-	#Reshape do dataset de modo que tenha apenas um canal de cor
-	X_train = X_train.reshape(X_train.shape[0], width, height, 1)
-	X_test = X_test.reshape(X_test.shape[0], width, height, 1)
-	input_shape = (width, height, 1)
+	# #Reshape do dataset de modo que tenha apenas um canal de cor
+	X_train = X_train.reshape(X_train.shape[0], height, width, 1)
+	X_test = X_test.reshape(X_test.shape[0], height, width, 1)
+	input_shape = (height, width, 1)
 
 	#Transformando os ints em vetores de tamanho 12
 	y_train = to_categorical(y_train)
-	X_train = to_categorical(X_train)
+	y_test = to_categorical(y_test)
 
 
 	"""**Criação do modelo de NN e compilação**"""
@@ -70,18 +71,23 @@ def convnet(X_train, y_train, X_test, y_test, width, height):
 	history = model.fit(X_train, y_train, epochs=10, batch_size=32, validation_data=(X_test, y_test), verbose=0)
 
 	#Validação do modelo
-	acc = model.evaluate(X_test, y_test, verbose = 0)
+	model.evaluate(X_test, y_test, verbose = 0)
 
+	print(history.history.keys())
+	plt.close()
 	#gráfico de loss e acurácia
-	plt.subplot(2,1,1)
-	plt.plot(history.history['acc'])
-	plt.plot(history.history['val_acc'])
+	# plt.subplot(2,1,1)
+	plt.plot(history.history['accuracy'])
+	plt.plot(history.history['val_accuracy'])
 	plt.title("Acurácia do modelo")
 	plt.xlabel('Epoch')
 	plt.ylabel('Accuracy')
 	plt.legend(['train','test'], loc='lower right')
+	# plt.show()
+	plt.savefig("images\\acuracia_convnet.png")
+	plt.close()
 
-	plt.subplot(2,1,2)
+	# plt.subplot(2,1,2)
 	plt.plot(history.history['loss'])
 	plt.plot(history.history['val_loss'])
 	plt.title("Loss do Modelo")
@@ -89,7 +95,10 @@ def convnet(X_train, y_train, X_test, y_test, width, height):
 	plt.ylabel('Loss')
 	plt.legend(['train','test'], loc='upper right')
 
-	plt.show()
+	# plt.show()
 
+	plt.savefig("images\\loss_convnet.png")
+	plt.close()
 	# print('Evaluated Loss', score[0])
 	# print('Evaluated Accuracy', score[1])
+
